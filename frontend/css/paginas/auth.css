@@ -1,0 +1,518 @@
+/* ================================
+   Página de Autenticação - auth.css
+   
+   Estilos para o sistema de login/cadastro
+   com animação de gradiente e tema escuro
+   ================================ */
+
+/* Importa a fonte Montserrat do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* ================================
+   ANIMAÇÕES
+   ================================ */
+
+/**
+ * Animação de gradiente animado
+ * Move o gradiente de fundo criando um efeito de fluxo contínuo
+ */
+@keyframes gradiente {
+    0% {
+        /* Início: gradiente posicionado à esquerda */
+        background-position: 0% 50%;
+    }
+    50% {
+        /* Meio: gradiente se move para a direita */
+        background-position: 100% 50%;
+    }
+    100% {
+        /* Fim: volta à posição inicial para criar loop */
+        background-position: 0% 50%;
+    }
+}
+
+/* ================================
+   RESET E ESTILOS GERAIS
+   ================================ */
+
+/**
+ * Reset global de estilos
+ * Remove margens e padding padrão de todos os elementos
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/**
+ * Estilos do body (corpodo HTML)
+ * Aplica fundo gradiente animado com temas em cores roxas e azuis
+ */
+body {
+    /* Gradiente com 4 cores: roxo escuro, roxo médio, azul e cinza */
+    background: linear-gradient(
+        -45deg,
+        #512da8,
+        #6a3bb8,
+        #c9d6ff,
+        #e2e2e2
+    );
+    /* Aumenta o tamanho do gradiente para permitir movimento suave */
+    background-size: 400% 400%;
+    /* Aplica animação contínua de 15 segundos */
+    animation: gradiente 15s ease infinite;
+    /* Centraliza todo o conteúdo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* Ocupa 100% da altura da janela */
+    height: 100vh;
+    /* Remove a barra de rolagem horizontal causada pela animação */
+    overflow: hidden;
+}
+
+/**
+ * Container principal
+ * Caixa branca que encapsula os formulários de login e cadastro
+ */
+.container {
+    background-color: #fff;
+    border-radius: 30px;
+    /* Sombra suave para dar profundidade */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+
+/* Parágrafos dentro do container */
+.container p {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+}
+
+/* Spans (textos pequenos) dentro do container */
+.container span {
+    font-size: 12px;
+}
+
+/* Links dentro do container */
+.container a {
+    color: #333;
+    font-size: 13px;
+    text-decoration: none;
+    margin: 15px 0 10px;
+}
+
+/**
+ * Botões dentro do container
+ * Estilo padrão com cor roxo da marca
+ */
+.container button {
+    background-color: #512da8;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/**
+ * Botões ocultos (usados no painel de toggle)
+ * Borda branca e fundo transparente
+ */
+.container button.hidden {
+    background-color: transparent;
+    border-color: #fff;
+}
+
+/**
+ * Formulários dentro do container
+ * Estrutura flex para alinhar os campos verticalmente
+ */
+.container form {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+/**
+ * Campos de entrada (inputs)
+ * Fundo cinzo e sem borda
+ */
+.container input {
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+
+/* ================================
+   FORMULÁRIOS
+   ================================ */
+
+/**
+ * Contáiner dos formulários
+ * Posicionamento absoluto para sobreposição
+ * Ambos formulários ocupam 50% da largura
+ */
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    /* Transição suave para animação de slide */
+    transition: all 0.6s ease-in-out;
+}
+
+/**
+ * Formulário de Login
+ * Inicialmente visível na esquerda
+ */
+.sign-in {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+/**
+ * Quando container está ativo (modo cadastro)
+ * Login desliza para a direita
+ */
+.container.active .sign-in {
+    transform: translateX(100%);
+}
+
+/**
+ * Formulário de Cadastro
+ * Inicialmente oculto (opacidade 0)
+ */
+.sign-up {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+/**
+ * Quando container está ativo
+ * Cadastro desliza para a esquerda e fica visível
+ */
+.container.active .sign-up {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+
+/* ================================
+   ÍCONES SOCIAIS
+   ================================ */
+
+/**
+ * Container dos ícones de redes sociais
+ */
+.social-icons {
+    margin: 20px 0;
+}
+
+/**
+ * Enlaces com ícones sociais
+ * Circulos peque com ícones centralizados
+ */
+.social-icons a {
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    width: 40px;
+    height: 40px;
+}
+
+/* ================================
+   PAINEL DE TOGGLE (Switch)
+   ================================ */
+
+/**
+ * Container do painel de toggle
+ * É a seção colorida que desliza sobre os formulários
+ * Ocupa a metade direita do container
+ */
+.toggle-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    /* Animação suave do deslizamento */
+    transition: all 0.6s ease-in-out;
+    /* Borda arredondada para efeito curvo */
+    border-radius: 150px 0 0 100px;
+    z-index: 1000;
+}
+
+/**
+ * Quando o container está em modo cadastro
+ * O toggle se move par a esquerda
+ */
+.container.active .toggle-container {
+    transform: translateX(-100%);
+    /* Inverte a posição da borda arredondada */
+    border-radius: 0 150px 100px 0;
+}
+
+/**
+ * Interior do painel toggle
+ * Gradiente roxo que desliza
+ */
+.toggle {
+    /* Gradiente roxo (cor da marca) */
+    background: linear-gradient(to right, #5c6bc0, #512da8);
+    color: #fff;
+    position: relative;
+    /* Posicionamento duplo para permitir movimento */
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+/**
+ * Quando em modo cadastro, o toggle se move para a direita
+ */
+.container.active .toggle {
+    transform: translateX(50%);
+}
+
+/**
+ * Paneis dentro do toggle (esquerdo e direito)
+ * Contém o texto de motivação
+ */
+.toggle-panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    /* Centraliza o conteúdo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+    transition: all 0.6s ease-in-out;
+}
+
+/**
+ * Painel esquerdo
+ * Mostrado quando em modo cadastro
+ */
+.toggle-left {
+    /* Posicionado fora da visão à esquerda */
+    transform: translateX(-200%);
+}
+
+/* Quando em modo cadastro, painel esquerdo se move para o centro */
+.container.active .toggle-left {
+    transform: translateX(0);
+}
+
+/**
+ * Painel direito
+ * Mostrado quando em modo login
+ */
+.toggle-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+/* Quando em modo cadastro, painel direito se move para fora da visão */
+.container.active .toggle-right {
+    transform: translateX(200%);
+}
+
+/* ================================
+   BOTÃO DE TEMA
+   ================================ */
+
+/**
+ * Botão flutuante para alternar tema
+ * Posicionado no canto inferior direito
+ */
+.btn-tema {
+    /* Fixo na tela, independente do scroll */
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #512da8;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    /* Centraliza o ícone */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    /* Sombra para destaque */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /* Animação suave para intercáes */
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+/**
+ * Efeito ao passar o mouse
+ * Cor mais clara e escala aumentada
+ */
+.btn-tema:hover {
+    background-color: #6a3bb8;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/**
+ * Efeito ao clicar
+ * Reduz um pouco para dar feedback tátil
+ */
+.btn-tema:active {
+    transform: scale(0.95);
+}
+
+/* ================================
+   TEMA ESCURO
+   ================================ */
+
+/**
+ * Estilos aplicados quando a classe 'dark-theme' está ativa
+ * Altera cores para tons escuros
+ */
+
+/**
+ * Body em tema escuro
+ * Fundo com gradiente em tons escuros e roxos
+ */
+body.dark-theme {
+    background: linear-gradient(
+        -45deg,
+        #1a1a1a,
+        #2d2d2d,
+        #512da8,
+        #6a3bb8
+    );
+    background-size: 400% 400%;
+    /* Usa a mesma animação de gradiente */
+    animation: gradiente 15s ease infinite;
+}
+
+/* Container em tema escuro - fundo escuro */
+body.dark-theme .container {
+    background-color: #2d2d2d;
+    /* Sombra mais intensa para combinar com tema escuro */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* Formulários em tema escuro */
+body.dark-theme .container form {
+    background-color: #2d2d2d;
+}
+
+/* Inputs em tema escuro - fundo cinza escuro */
+body.dark-theme .container input {
+    background-color: #3d3d3d;
+    color: #fff;
+    border: 1px solid #4d4d4d;
+}
+
+/* Links em tema escuro - cor cinza clara */
+body.dark-theme .container a {
+    color: #b0b0b0;
+}
+
+/* Spans em tema escuro */
+body.dark-theme .container span {
+    color: #b0b0b0;
+}
+
+/* Títulos em tema escuro - branco */
+body.dark-theme .container h1 {
+    color: #fff;
+}
+
+/* Parágrafos em tema escuro - cinza clara */
+body.dark-theme .container p {
+    color: #b0b0b0;
+}
+
+/* Ícones sociais em tema escuro */
+body.dark-theme .social-icons a {
+    border-color: #4d4d4d;
+    color: #b0b0b0;
+}
+
+/* Efeito hover nos ícones sociais em tema escuro */
+body.dark-theme .social-icons a:hover {
+    background-color: #4d4d4d;
+    color: #fff;
+}
+
+/* Botão de tema em tema escuro - roxo mais claro */
+body.dark-theme .btn-tema {
+    background-color: #6a3bb8;
+}
+
+/* Efeito hover do botão em tema escuro */
+body.dark-theme .btn-tema:hover {
+    background-color: #7a4bc8;
+}
+/* ================================
+   AJUSTES DE INPUTS NUMÉRICOS
+   ================================ */
+
+/**
+ * Remove os botões de incremento/decremento
+ * dos inputs de número em navegadores WebKit
+ * (Chrome, Safari, Edge, Opera)
+ */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/**
+ * Remove os botões de incremento/decremento
+ * dos inputs de número no Firefox
+ */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield; /* Padrão moderno */
+}
+
+
